@@ -56,3 +56,6 @@ env/
 
 # # PyBuilder
 # target/
+
+# pycharm
+.idea
