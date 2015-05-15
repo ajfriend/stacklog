@@ -5,10 +5,23 @@ maybe the default behavior is to pop the stack to a list for holding
 ....and then later call a collection function?
 
 """
+dv = None
+
+"""
+maybe the data structure we really want is
+key: [(value, children),(value, children),(value, children)]
+
+where each value is the time it took on each process.
+
+'prox': [(total_time, {}), ]
+
+"""
+
+# put the wrapping timing code in runner?
 
 def runner():
     import stacklog
-    return stacklog.pull()
+    return stacklog.gather()
 
 @contextmanager
 def par(key):
@@ -16,7 +29,7 @@ def par(key):
     logger = logs['default']
 
     # clear the remote stacks
-    dv.execute('stacklog.pull()', block=True)
+    dv.execute('stacklog.gather()', block=True)
 
     logger.tic(key)
     yield

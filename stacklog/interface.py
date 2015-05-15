@@ -1,46 +1,48 @@
 # code for the module interface
 from contextlib import contextmanager
+from .stacklog import Logger
 
-## module API
-@contextmanager
-def timer(key, once=False):
+# dictionary of loggers
+logs = {'default': Logger('default')}
+#active = True  # to turn on and off logging
+
+
+# log(name).timer()
+def log(name='default'):
     global logs
-    logger = logs['default']
+    return logs.setdefault(name, Logger(name))
+
+
+@contextmanager
+def timer(key):
     # context manager inside a context manager!
-    with logger.timer(key, once):
+    with log().timer(key):
         yield
 
+
 def record_root(key, value, *children):
-    global logs
-    logger = logs['default']
-    logger.record_root(key, value, *children)
+    log().record_root(key, value, *children)
+
 
 def record(key, value, *children):
-    global logs
-    logger = logs['default']
-    logger.record(key, value, *children)
+    log().record(key, value, *children)
+
 
 def reset():
-    global logs
-    logger = logs['default']
-    logger.reset()
+    log().reset()
+
 
 def tic(key):
-    global logs
-    logger = logs['default']
-    logger.tic(key)
+    log().tic(key)
+
 
 def toc(record=True):
-    global logs
-    logger = logs['default']
-    return logger.toc(record=record)
+    return log().toc(record=record)
+
 
 def peek():
-    global logs
-    logger = logs['default']
-    return logger.peek()
+    return log().peek()
 
-def pull():
-    global logs
-    logger = logs['default']
-    return logger.pull()
+
+def gather():
+    return log().gather()
