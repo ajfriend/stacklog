@@ -1,5 +1,6 @@
 from contextlib import contextmanager
 import time
+from .util import pretty_log
 
 # what's the data format? optional children? optional parallel shit?
 
@@ -20,9 +21,8 @@ class Logger(object):
             collect all the stuff and include
     """
 
-    def __init__(self, name=None):
+    def __init__(self):
         # the top of the stack is always a dictionary, which is waiting to capture new input
-        self.name = name
         self.stack = [{}]
 
     def reset(self):
@@ -88,9 +88,9 @@ class Logger(object):
         self.stack[0].setdefault(key, []).append((value,) + children)
 
     def __repr__(self):
-        if self.name is not None:
-            name = repr(self.name)
-        else:
-            name = ''
-        return '{}({})'.format(type(self).__name__, name)
+        return pretty_log(self)
+
+    def __str__(self):
+        return repr(self)
+
 

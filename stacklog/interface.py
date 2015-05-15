@@ -1,16 +1,18 @@
 # code for the module interface
 from contextlib import contextmanager
 from .stacklog import Logger
+from collections import defaultdict
 
 # dictionary of loggers
-logs = {'default': Logger('default')}
+logs = defaultdict(Logger)
+logs['default'] = Logger()
 #active = True  # to turn on and off logging
 
 
 # log(name).timer()
 def log(name='default'):
     global logs
-    return logs.setdefault(name, Logger(name))
+    return logs[name]
 
 
 @contextmanager
