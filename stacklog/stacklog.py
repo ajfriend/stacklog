@@ -86,7 +86,7 @@ class Logger(object):
         self.stack[0].setdefault(key, []).append((value,) + children)
 
     def __repr__(self):
-        return pretty_log(self)
+        return pretty_log(self, show=False)
 
     def __str__(self):
         return repr(self)

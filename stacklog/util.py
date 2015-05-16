@@ -1,25 +1,52 @@
 from pprint import pformat
 
+__all__ = ['pretty_log', 'pretty_dict', 'lost_time']
 
-def pretty_log(log, depth=None, clean=True):
+
+# def pretty(data, depth=None, clean=True, show=True):
+#
+#     if isinstance(data, Logger):
+#         s = pretty_log(data, depth, clean)
+#     elif isinstance(data, dict):
+#         s = pretty_dict(data, depth, clean)
+#     else:
+#         raise ValueError('Expecting to pretty print a Logger or tuple.')
+#
+#     if show:
+#         print(s)
+#     else:
+#         return s
+
+
+def pretty_log(log, depth=None, clean=True, show=True):
     s = []
     for i, item in enumerate(log.stack):
         s.append('Stack item {}:\n'.format(i))
         if isinstance(item, dict):
-            s.append(pretty_dict(item, depth, clean))
+            s.append(pretty_dict(item, depth, clean, show=False))
 
         elif isinstance(item, tuple):
             s.append(str(item))
         else:
             raise ValueError('We expect the stack log to include only tuples and dictionaries.')
 
-    return '\n'.join(s)
+    s = '\n'.join(s)
+    if show:
+        print(s)
+    else:
+        return s
 
 
-def pretty_dict(d, depth=None, clean=True):
+def pretty_dict(d, depth=None, clean=True, show=True):
     if clean:
         d = clean_dict(d)
-    return pformat(d, depth=depth)
+    s = pformat(d, depth=depth)
+    if show:
+        print(s)
+    else:
+        return s
+
+
 
 
 def clean_tuple(t):
