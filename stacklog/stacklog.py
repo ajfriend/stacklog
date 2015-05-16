@@ -2,8 +2,6 @@ from contextlib import contextmanager
 import time
 from .util import pretty_log
 
-# what's the data format? optional children? optional parallel shit?
-
 # todo: make it so you can use different timers?
 
 
@@ -11,7 +9,7 @@ class Logger(object):
     r""" A stack (list) of dictionaries.
         Each item in dict is of the form
         key: [(value, *children),...]
-        where *children is a list of 0 or more dictionarires, denoting subordinate timers.
+        where *children is a list of 0 or more dictionaries, denoting subordinate timers.
         The first is any local subordinate timers. any further timers denote ones
         run on parallel machines and then collected later
 
@@ -59,7 +57,7 @@ class Logger(object):
         yield
         self.toc()
 
-    def gather(self):
+    def pull(self):
         """ To be used only at the top most level, not in the middle of any timings.
 
         Returns the nested dictionary of logs and resets the stack to be empty.

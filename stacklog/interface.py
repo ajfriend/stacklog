@@ -46,5 +46,5 @@ def peek():
     return log().peek()
 
 
-def gather():
-    return log().gather()
+def pull():
+    return log().pull()

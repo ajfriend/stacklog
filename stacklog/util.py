@@ -41,16 +41,36 @@ def clean_dict(d):
     return result
 
 
-def time_sum(d):
-    pass
-    # write the function to do this for a single tuple
-    # check that every thing's children sum to somthin less than the elapsed valuep
+def dictlistmap(func, d):
+    d2 = {}
+    for key in d:
+        val = [func(item) for item in d[key]]
+        if not all(item is None for item in val):
+            d2[key] = val
+    return d2
+
+
+def lost_time(d):
+    return dictlistmap(time_diff_tup, d)
+
+
+def time_diff_tup(t):
+    """ For a single tuple, return the difference in the recorded
+        total time and the sum of the subordinate times.
+
+        Return the same for the children dicts.
+    """
+    dicts = t[1:]
+    if dicts[0]:
+        total = 0.0
+        for l in dicts[0].values():
+            for tup in l:
+                total += tup[0]
+
+        return t[0] - total, lost_time(dicts[0])
 
 
 # maybe add a function that computes variance over the experiment?
 
 # maybe make a dict that shows the gap in every value and its children (if it has children)
 # make an equivalent one for max (parallel)
-
-# be able to print out the stack log even when it isn't cleared
-# this would be good to see where it is, and debug
