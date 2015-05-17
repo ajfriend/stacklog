@@ -59,7 +59,7 @@ def clean_tuple(t):
 
 def clean_dict(d):
     result = {}
-    for k, l in d.iteritems():
+    for k, l in d.items():
         if len(l) == 1:
             result[k] = clean_tuple(l[0])
         else:

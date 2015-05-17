@@ -53,6 +53,15 @@ def test_interface():
             assert 0.3 <= result['outer'][0][1]['another inner'][0][0] <= 0.35
 
 
+def test_pretty_print():
+    sl.reset()
+    run_timing()
+    print('Outputs:')
+    sl.pretty_dict(sl.peek())
+    sl.pretty_log(sl.log())
+
+
+
 
 
 
