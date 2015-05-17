@@ -4,7 +4,7 @@ Nested benchmarking and timing for Python code.
 Read the [tutorial on GitHub](docs/tutorial.ipynb) or [on nbviewer](http://nbviewer.ipython.org/github/ajfriend/stacklog/blob/master/docs/tutorial.ipynb).
 
 ## Install
-`pip install https://github.com/ajfriend/stacklog.git`
+`pip install git+git://github.com/ajfriend/stacklog.git`
 
 
 ## Example
